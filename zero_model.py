@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 class Policy(nn.Module):
 
-    def __init__(self, state):
+    def __init__(self):
         super(Policy, self).__init__()
 
         # 7*6 board size > 5*4

@@ -6,6 +6,7 @@ from copy import copy
 class Connect4Zero:
     def __init__(self, policy='connect4Zero3000.mypolicy', timeout=20.):
         self.policy = torch.load(policy)
+        self.TIME_LIMIT_MILLIS = 200.
         self.TIMER_THRESHOLD = timeout
 
     def search(self, game, time_left):
@@ -17,6 +18,6 @@ class Connect4Zero:
                 break
 
             self.tree.explore(self.policy)
-            self.tree_next, _ = self.tree.next(temperature=0.1)
+            self.tree_next, _ = self.tree.next(temperature=2)
 
         return self.tree_next.game.last_move[0]

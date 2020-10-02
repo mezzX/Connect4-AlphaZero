@@ -1,7 +1,7 @@
 import numpy as np
 import random
 from copy import copy
-from utils import *        
+from utils.game_utils import *        
 
 class Connect4:
 
@@ -15,8 +15,8 @@ class Connect4:
             raise ValueError('Game cannot initialize with a {0:d}x{1:d} grid, and winning condition {2:d} in a row'.format(self.w, self.h, self.N))
  
         self.score = None
-        self.state = np.zeros(size, dtype = np.float)
-        self.openCells = [0]*self.w
+        self.state = np.zeros(size, dtype = np.float32)
+        self.openCells = [0] * self.w
         self.available_moves = list(range(self.w))  # array of possible moves.
         self.player = 1
         self.last_move = None
@@ -72,7 +72,7 @@ class Connect4:
     # output a list of location for the winning line
     def get_winning_loc(self):
         
-        if self.n_moves<2*self.N-1:
+        if self.n_moves < 2 * self.N - 1:
             return []
 
           
@@ -132,3 +132,10 @@ class Connect4:
 
     def available_mask(self):
         return (np.abs(self.state) != 1).astype(np.uint8)
+
+
+    def get_mask(self):
+        cells = np.array(self.openCells).astype(np.float32)
+        mask = np.where(cells < 6, 1, 0).astype(np.float32)
+
+        return mask
